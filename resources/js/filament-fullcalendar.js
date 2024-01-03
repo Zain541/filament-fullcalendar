@@ -83,7 +83,7 @@ export default function fullcalendar({
 
                 drop: (dropInfo) => {
                     //console.log(dropInfo.draggedEl.dataset.event);
-                    console.log(dropInfo);
+                    //console.log(dropInfo);
                     let event = dropInfo.draggedEl.dataset.event;
                     this.$wire.onDrop(dropInfo, event)
                 },
