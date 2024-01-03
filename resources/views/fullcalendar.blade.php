@@ -22,7 +22,7 @@
             })">
         </div>
 
-        <div id="mydraggable">Drag me!</div>
+        <div id="mydraggable" data-event='{ "title": "my dragging event", "days": "10", "description": "This is my first dragging event", "start_time": "10:00", "end_time": "12:00", "user_id": "2", "color": "#FFFF00", "participants": ["1", "2", "3"], "eventable_type": "App\\Models\\Library\\Activity", "eventable_id": "10" }'>Drag me!</div>
     </x-filament::section>
 
     <x-filament-actions::modals />
