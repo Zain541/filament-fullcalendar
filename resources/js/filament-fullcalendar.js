@@ -76,8 +76,16 @@ export default function fullcalendar({
                     this.$wire.onDateSelect(dateStr, null, allDay, view)
                 },
                 select: ({ startStr, endStr, allDay, view }) => {
+                    console.log(startStr);
                     if (!selectable) return;
                     this.$wire.onDateSelect(startStr, endStr, allDay, view)
+                },
+
+                drop: (dropInfo) => {
+                    //console.log(dropInfo.draggedEl.dataset.event);
+                    console.log(dropInfo);
+                    let event = dropInfo.draggedEl.dataset.event;
+                    this.$wire.onDrop(dropInfo, event)
                 },
             })
 
@@ -86,6 +94,7 @@ export default function fullcalendar({
              const draggableEl = document.getElementById('mydraggable'); // Get the draggable element
              new Draggable(draggableEl, {
                  eventData: function(eventEl) {
+                    console.log('working');
                      return {
                          title: eventEl.innerText.trim(),
                      };
