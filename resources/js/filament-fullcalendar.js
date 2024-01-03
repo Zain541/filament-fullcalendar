@@ -1,5 +1,5 @@
 import { Calendar } from '@fullcalendar/core'
-import interactionPlugin from '@fullcalendar/interaction'
+import interactionPlugin, { Draggable } from '@fullcalendar/interaction';
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import listPlugin from '@fullcalendar/list'
@@ -39,6 +39,7 @@ export default function fullcalendar({
                 timeZone,
                 editable,
                 selectable,
+                droppable: true,
                 ...config,
                 locales,
                 events: (info, successCallback, failureCallback) => {
@@ -80,7 +81,18 @@ export default function fullcalendar({
                 },
             })
 
-            calendar.render()
+            calendar.render();
+             // External dragging setup
+             const draggableEl = document.getElementById('mydraggable'); // Get the draggable element
+             new Draggable(draggableEl, {
+                 eventData: function(eventEl) {
+                     return {
+                         title: eventEl.innerText.trim(),
+                     };
+                 },
+                 // Optionally customize other draggable options here
+             });
+
 
             window.addEventListener('filament-fullcalendar--refresh', () => calendar.refetchEvents())
         },
