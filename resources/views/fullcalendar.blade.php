@@ -1,5 +1,5 @@
 @php
-    $plugin = \Saade\FilamentFullCalendar\FilamentFullCalendarPlugin::get(); // updated by Zain
+    $plugin = \Saade\FilamentFullCalendar\FilamentFullCalendarPlugin::get();
 @endphp
 
 <x-filament-widgets::widget>
@@ -21,6 +21,8 @@
                 selectable: @json($plugin->isSelectable()),
             })">
         </div>
+
+        <div id="mydraggable">Drag me!</div>
     </x-filament::section>
 
     <x-filament-actions::modals />
