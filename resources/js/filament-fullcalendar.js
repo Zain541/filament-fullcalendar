@@ -94,7 +94,6 @@ export default function fullcalendar({
              const draggableEl = document.getElementById('mydraggable'); // Get the draggable element
              new Draggable(draggableEl, {
                  eventData: function(eventEl) {
-                    console.log('working');
                      return {
                          title: eventEl.innerText.trim(),
                      };
@@ -102,11 +101,27 @@ export default function fullcalendar({
                  // Optionally customize other draggable options here
              });
 
+            const sidebar = document.getElementById('sidebar');
+            const toggleSidebarButton = document.getElementById('toggleSidebarButton');
+
+            function toggleSidebar() {
+                console.log('working');
+                sidebar.classList.toggle('collapsed-sidebar');
+                setTimeout(() => {
+                    calendar.updateSize();
+                }, 300);
+            }
+
+            // Add an event listener to the button to toggle the sidebar
+            toggleSidebarButton.addEventListener('click', toggleSidebar);
+
 
             window.addEventListener('filament-fullcalendar--refresh', () => calendar.refetchEvents())
         },
     }
 }
+
+
 
 const availablePlugins = {
     'interaction': interactionPlugin,
