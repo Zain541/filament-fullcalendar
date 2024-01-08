@@ -28,8 +28,16 @@ export default function fullcalendar({
         init() {
             /** @type Calendar */
             const calendar = new Calendar(this.$el, {
+                customButtons: {
+                    toggleSidebar: {
+                      text: 'sidebar',
+                      click: function() {
+                        toggleSidebar();
+                      }
+                    }
+                  },
                 headerToolbar: {
-                    'left': 'prev,next today',
+                    'left': 'prev,next today, toggleSidebar',
                     'center': 'title',
                     'right': 'dayGridMonth,dayGridWeek,dayGridDay',
                 },
@@ -82,39 +90,39 @@ export default function fullcalendar({
                 },
 
                 drop: (dropInfo) => {
-                    //console.log(dropInfo.draggedEl.dataset.event);
-                    console.log(dropInfo);
+                    console.log(dropInfo.draggedEl.dataset.event);
+                    //console.log(dropInfo);
                     let event = dropInfo.draggedEl.dataset.event;
                     this.$wire.onDrop(dropInfo, event)
+                    calendar.updateSize();
+                   
                 },
             })
 
             calendar.render();
              // External dragging setup
-             const draggableEl = document.getElementById('mydraggable'); // Get the draggable element
-             new Draggable(draggableEl, {
-                 eventData: function(eventEl) {
-                     return {
-                         title: eventEl.innerText.trim(),
-                     };
-                 },
-                 // Optionally customize other draggable options here
-             });
+            const draggableElements = document.querySelectorAll('.draggable');
+
+            // Loop through each draggable element and apply Draggable functionality
+            draggableElements.forEach((draggableEl) => {
+                new Draggable(draggableEl, {
+                    eventData: function(eventEl) {
+                        return {
+                            title: eventEl.innerText.trim(),
+                        };
+                    },
+                    // Optionally customize other draggable options here
+                });
+            });
 
             const sidebar = document.getElementById('sidebar');
-            const toggleSidebarButton = document.getElementById('toggleSidebarButton');
 
             function toggleSidebar() {
-                console.log('working');
                 sidebar.classList.toggle('collapsed-sidebar');
                 setTimeout(() => {
                     calendar.updateSize();
                 }, 300);
             }
-
-            // Add an event listener to the button to toggle the sidebar
-            toggleSidebarButton.addEventListener('click', toggleSidebar);
-
 
             window.addEventListener('filament-fullcalendar--refresh', () => calendar.refetchEvents())
         },
