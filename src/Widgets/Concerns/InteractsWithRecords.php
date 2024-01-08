@@ -88,4 +88,9 @@ trait InteractsWithRecords
     {
         return $this->modelLabel ?? get_model_label($this->getModel());
     }
+
+    protected function saveDraggingEvent($record) : void
+    {
+        //
+    }
 }
