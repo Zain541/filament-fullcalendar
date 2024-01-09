@@ -101,38 +101,20 @@ trait InteractsWithEvents
      */
     public function onDrop($dropInfo, $event): void
     {
-        // \Log::debug($dropInfo);
         $date = $dropInfo['dateStr'];
         $jsonEvent = json_decode($event);
-        $title = $jsonEvent->title;
-        $description = $jsonEvent->description;
-        $days = $jsonEvent->days;
+
+        $id = $jsonEvent->id;
         $start_time = $jsonEvent->start_time;
         $end_time = $jsonEvent->end_time;
-        $user_id = $jsonEvent->user_id;
-        $color = $jsonEvent->color;
-        $participants = array_map('intval', $jsonEvent->participants);
 
         $startDate = Carbon::parse($date)->format('Y-m-d');
-        $endDate = Carbon::parse($date)->addDays($days)->format('Y-m-d');
+        $endDate = Carbon::parse($date)->format('Y-m-d');
 
-        $eventable_type = $jsonEvent->eventable_type;
-        $eventable_id = (int) $jsonEvent->eventable_id;
-
-        $this->mountAction('create', [
-            'type' => 'drop',
+        $this->saveDraggingEvent([
             'start_date' => $startDate,
             'end_date' => $endDate,
-            'title' => $title,
-            'description' => $description,
-            'start_time' => $start_time,
-            'end_time' => $end_time,
-            'end_time' => $end_time,
-            'user_id' => $user_id,
-            'color' => $color,
-            'participants' => $participants,
-            'eventable_type' => $eventable_type,
-            'eventable_id' => $eventable_id,
+            'id' => $id,
         ]);
     }
 
