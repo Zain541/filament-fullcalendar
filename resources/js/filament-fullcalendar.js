@@ -26,6 +26,7 @@ export default function fullcalendar({
 }) {
     return {
         init() {
+            let event = null;
             /** @type Calendar */
             const calendar = new Calendar(this.$el, {
                 customButtons: {
@@ -90,13 +91,18 @@ export default function fullcalendar({
                 },
 
                 drop: (dropInfo) => {
-                    console.log(dropInfo.draggedEl.dataset.event);
+                    // console.log(dropInfo.event);
                     //console.log(dropInfo);
-                    let event = dropInfo.draggedEl.dataset.event;
+                    event = dropInfo.draggedEl.dataset.event;
+                    // console.log(event);
                     this.$wire.onDrop(dropInfo, event)
                     calendar.updateSize();
-                   
+                    //event.id = 'deletable';
+
                 },
+                eventReceive: (info) => {
+                    event = info.event;
+                }
             })
 
             calendar.render();
@@ -124,7 +130,15 @@ export default function fullcalendar({
                 }, 300);
             }
 
-            window.addEventListener('filament-fullcalendar--refresh', () => calendar.refetchEvents())
+            window.addEventListener('filament-fullcalendar--refresh', () => {
+                calendar.refetchEvents();
+                calendar.updateSize();
+                if(event != null)
+                {
+                    event.remove();
+                }
+                event = null;
+              });
         },
     }
 }
