@@ -104,17 +104,25 @@ trait InteractsWithEvents
         $date = $dropInfo['dateStr'];
         $jsonEvent = json_decode($event);
 
-        $id = $jsonEvent->id;
-        $start_time = $jsonEvent->start_time;
-        $end_time = $jsonEvent->end_time;
+        $title = $jsonEvent->title;
+        $description = $jsonEvent->description;
 
         $startDate = Carbon::parse($date)->format('Y-m-d');
         $endDate = Carbon::parse($date)->format('Y-m-d');
 
-        $this->saveDraggingEvent([
+        $eventableId = $jsonEvent->eventable_id;
+        $eventableType = $jsonEvent->eventable_type;
+
+        $color = $jsonEvent->color;
+        $this->mountAction('create', [
+            'type' => 'externalDraggableDrop',
+            'title' => $title,
+            'color' => $color,
+            'description' => $description,
             'start_date' => $startDate,
             'end_date' => $endDate,
-            'id' => $id,
+            'eventable_id' => $eventableId,
+            'eventable_type' => $eventableType,
         ]);
     }
 
