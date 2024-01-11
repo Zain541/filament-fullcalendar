@@ -4,11 +4,6 @@
 
 <x-filament-widgets::widget>
     <x-filament::section>
-
-    @php
-        // logger($this->draggableEvents());
-    @endphp
-
         <div class="flex justify-end flex-1 mb-4">
             <x-filament-actions::actions :actions="$this->getCachedHeaderActions()" class="shrink-0" />
         </div>
@@ -16,12 +11,12 @@
             <div class="flex flex-col collapsable-sidebar collapsed-sidebar" id="sidebar">
                 <div class="py-8"></div>
                 <div class="flex flex-col gap-1 px-2 py-4 text-sm text-center text-white bg-white border border-gray-400 shadow-sm grow rounded-t-xl">
-                    @foreach ($this->draggableEvents() as $event)
+                    @foreach ($this->draggableEvents() as $draggableEvent)
                         @php
-                            $eventColor = $event->color ?? '#D97706';
-                            $eventableType = str_replace("\\","\\\\", $event->eventable_type);
+                            $draggableEventColor = '#D97706';
+                            $draggableEventableType = str_replace("\\","\\\\", $draggableEvent->instance_type);
                         @endphp
-                        <div class="cursor-move py-0.5 border rounded-md draggable" data-event='{"id": "{{ $event->id }}", "title": "working", "days": "1", "description": "{{ $event->description }}", "start_time": "{{ $event->start_time }}", "end_time": "{{ $event->end_time }}", "user_id": "{{ $event->user_id }}", "color": "{{ $eventColor }}", "participants": ["1", "2", "3"], "eventable_type": "{{ $eventableType }}", "eventable_id": "{{ $event->eventable_id }}" }'>{{ $event->name }}</div>
+                        <div class="cursor-move py-0.5 border rounded-md draggable" data-event='{"title": "{{ $draggableEvent->name }}", "description": "{{ $draggableEvent->description }}", "color": "{{ $draggableEventColor }}", "eventable_type": "{{ $draggableEventableType }}", "eventable_id": "{{ $draggableEvent->id }}" }'>{{ $draggableEvent->name }}</div>
                     @endforeach
                 </div>
             </div>
