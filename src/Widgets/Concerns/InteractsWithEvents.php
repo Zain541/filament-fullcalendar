@@ -106,9 +106,11 @@ trait InteractsWithEvents
 
         $title = $jsonEvent->title;
         $description = $jsonEvent->description;
+        $duration = $jsonEvent->duration;
 
         $startDate = Carbon::parse($date)->format('Y-m-d');
         $endDate = Carbon::parse($date)->format('Y-m-d');
+        $startTime = Carbon::parse($date)->format('H:i:s');
 
         $eventableId = $jsonEvent->eventable_id;
         $eventableType = $jsonEvent->eventable_type;
@@ -123,6 +125,9 @@ trait InteractsWithEvents
             'end_date' => $endDate,
             'eventable_id' => $eventableId,
             'eventable_type' => $eventableType,
+            'start_time' => $startTime,
+            'duration' => $duration
+
         ]);
     }
 
