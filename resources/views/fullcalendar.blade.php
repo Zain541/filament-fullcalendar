@@ -16,7 +16,7 @@
                             $draggableEventColor = '#D97706';
                             $draggableEventableType = str_replace("\\","\\\\", $draggableEvent->instance_type);
                         @endphp
-                        <div class="cursor-move py-0.5 border rounded-md draggable" data-event='{"title": "{{ $draggableEvent->name }}", "description": "{{ $draggableEvent->description }}", "color": "{{ $draggableEventColor }}", "eventable_type": "{{ $draggableEventableType }}", "eventable_id": "{{ $draggableEvent->id }}" }'>{{ $draggableEvent->name }}</div>
+                        <div class="cursor-move py-0.5 border rounded-md draggable" data-event='{"title": "{{ $draggableEvent->name }}", "description": "{{ $draggableEvent->description }}", "color": "{{ $draggableEventColor }}", "eventable_type": "{{ $draggableEventableType }}", "eventable_id": "{{ $draggableEvent->id }}", "duration": "{{ $draggableEvent->duration }}" }'>{{ $draggableEvent->name }}</div>
                     @endforeach
                 </div>
             </div>
